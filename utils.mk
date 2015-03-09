@@ -1,0 +1,9 @@
+.PHONY: watch
+
+ELM_SERVER = elm-reactor
+
+watch:
+	ELM_SERVER="$(ELM_SERVER)" supervise .
+
+serve:
+	$(ELM_SERVER)
