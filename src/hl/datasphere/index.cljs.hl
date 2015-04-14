@@ -1,0 +1,31 @@
+(page "index.html"
+  (:require
+    #_[tailrecursion.hoplon.reload :refer [reload-all]]
+    [tailrecursion.hoplon.storage-atom  :refer [local-storage]]
+    [datasphere.rpc :as rpc]
+    [datasphere.components.app :as app]))
+
+#_(reload-all 1000)
+
+(rpc/init)
+
+(def state-default {:source " * Hello1\n * Hello2\n * Hello?\n"
+                    :other "Say what?"})
+
+;; persisted state cell (AKA: stem cell) ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(def state         (-> (cell state-default) (local-storage [::store true])))
+
+;; formula cells (computed state) ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; state transition functions ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(html
+  (head
+    (link :rel "stylesheet" :type "text/css" :href "vendor/semantic/semantic.css")
+    (script :type "text/javascript" :src "vendor/jquery/jquery.js")
+    (script :type "text/javascript" :src "vendor/semantic/semantic.js")
+    #_(script :type "text/javascript" :id "lt_ws" :src "http://localhost:53474/socket.io/lighttable/ws.js"))
+  (body
+    (app/app @state state-default rpc/server-state)))

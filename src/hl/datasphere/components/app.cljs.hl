@@ -1,0 +1,32 @@
+(ns datasphere.components.app
+  :require [datasphere.components.editor :as editor])
+
+(defn app
+  [state state-default rpc-state]
+  (let [source-value (:source state)
+        rpc-random (cell= (:random rpc-state))
+        rpc-counter (cell= (:counter rpc-state))]
+    (div :class "container"
+        (div :class "ui inverted teal vertical segment"
+          (div :class "ui page grid"
+            (div :class "ui column"
+              (h1 :class "ui inverted header" (text "DataSphere"))
+              (p (text "Data Document Editor")))))
+        (div :class "ui vertical segment"
+          (editor/editor state))
+        (div :class "ui inverted black footer vertical segment"
+             :style "padding: 4em 0em 5em;"
+          (div :class "container"
+            (div :class "ui page stackable inverted divided relaxed grid"
+              (div :class "eight wide column"
+                (h3 :class "ui inverted header" (text "About"))
+                (p (text "DataSphere is a software ecosystem to help organise, visualise and interact with data in sophisticated ways!"))
+                (p (text "~{rpc-random} ~{rpc-counter}")))
+              (div :class "four wide column"
+                (h4 :class "ui inverted header" (text "State"))
+                (p (text "~{state}"))
+                (h4 :class "ui inverted header" (text "RPC State"))
+                (p (text "~{rpc-state}")))
+              (div :class "four wide column"
+                (h4 :class "ui inverted header" (text "Default"))
+                (p (text "~{state-default}")))))))))
