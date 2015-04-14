@@ -1,68 +1,62 @@
-# User Experience
+# Data Model
 
-Concrete "scratch my own itch" use cases:
- * Tool space database. (comparison/mapping/intention driven browsing)
- *
+## Text
 
-## Personas
+ * Data
 
- * PKMer -> aiming to organise and manage personal knowledge
- * Data Journalist
- * Data Management tool
+   * edn:
 
+"hello\nhello\nhello"
 
+   * ttl:
 
-## Prototype User Story
-
-Objective: Deal with the shift between unstructured text <-> list structure <-> row structure
+        _:this dt:datum  "hello\nhello\nhello"^^xsd:string .
 
 
-## Input unstructured list
+   * nq underlying:
 
- * Action
-
-Type ```hello``` (enter) ```hello``` (enter) ```hello```
-
- * Result
-
-```
-
-hello
-hello
-hello
-
-```
-
-## Switch to structured list
-
- * Action
-
-Select all (ctrl-a) and use (tab).
-
- * Results
-
-The screen should display
-
- ```
-
-  * hello
-  * hello
-  * hello
-
- ```
+        _:this   ds:datum _:value                             _:g .
+        _:value  ds:value "hello\nhello\nhello"^^xsd:string"  _:g .
 
 
-## Switch to rows
+## List
 
- * Action
+ * Data
 
-With all selected use (tab) again
+   * edn:
 
- * Results
+("hello" "hello" "hello")
 
-The screen should display
+or should it be ["hello" "hello" "hello"] ?
 
- ```
+   * ttl compact:
+
+        _:this   ds:datum  "hello" .
+                 ds:datum  "hello" .
+                 ds:datum  "hello" .
+
+   * nq underlying:
+
+        _:this   ds:datum  _:value1  _:g .
+        _:value1 ds:idx    0         _:g .
+        _:value1 ds:value  "hello"   _:g .
+
+        _:this   ds:datum  _:value2  _:g .
+        _:value2 ds:idx    1         _:g .
+        _:value2 ds:value  "hello"   _:g .
+
+        _:this   ds:datum  _:value3  _:g .
+        _:value3 ds:idx    2         _:g .
+        _:value3 ds:value  "hello"   _:g .
+
+Notes about the schema
+
+        _:this     is the current document or data section in the document.
+        _:g        is the context for the document.
+        ds:idx     is an implicit index. If the ul becomes an ol then the index will be explicit (ds:key)
+
+## Rows
+
 
 |---|---------|---|
 | * | "hello" |   |
@@ -71,14 +65,11 @@ The screen should display
 |---|---------|---|
 
 
- ```
 
+{:1 ["hello"], :2 ["hello"], :3 ["hello"]}
 
-## Add column values
+  * Adding a couple of values in the new column.
 
-  * Action
-
-Adding a couple of values in the new column (->) A
 
  ```
 

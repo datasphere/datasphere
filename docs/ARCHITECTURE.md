@@ -82,73 +82,6 @@ DataSphere plugins might be components.
 
 Maybe Triggers of BOT should be CSP queues.
 
-## Components
-
-They are pipes/components somewhere maybe either:
-
- * between the user and the essential state (either as an input transformer or an output transformer),
-   * formatters: output formatters?/transformers examples...
-     * source mode (for hacking, focus on structure or logic, text mode, shorcuts, explicit, allow modification of implicits)
-       * markdown like syntax.
-       * textile like syntax
-       * lisp like/clojure like/...
-       * csv like
-       * json like
-     * edit mode (for editing, focus on content and workflow, should allow to do almost all of the source mode but sometimes options will be behind several navigation levels, still shortcuts, more visual cues rather than textual cues)
-     * present mode (for publication, focus on content and interactivity)
-   * modifiers: input modifiers? maybe its not formatter dependent?
-     * generic modifiers
-       * data type detection (when copy pasting, when using an external link, when repeating structure,...)
-     * source modifiers
-       * input-emacs
-       * input-vi...
-     * edit modifiers
-       * shorcuts
-       *
-   * data editing widgets (these should be extensible too).
-
-Tricky question about whether there should be some interop of output/input and possibly components that include both... i.e. can a table editing component be reused with different source-mode formatters or edit-mode formatters? I guess it should be also possible to extend a table component with specialised transformers to extend it. Probably the table component should be in core with a stable API and there should be possible alternatives in contrib.
-
- * As a generator of derived state (maybe the same thing as an output transformer? but for storage rather than interface).
- * As a transformer of essential state (to manipulate the data, so components need to have a way to hook into effects - triggered by users, by schedule, by systems constraints, by user specified business logic).
- * As the persistence layer for essential state (and derived state).
- * As logic constraining state (defining structure/schema/integrity...)
-
-So with the value driven approach, all of these need to have access to "the whole of the data" as a value. That whole can be a user's document (but with loose boundaries as soon as a document's statement is linked to other documents, a query, a graph,...). Lazy loaded content getters (like a scraper, an asynchronous "human size" process - i.e. waiting for, a crowdsourcing app). Are these content getters queries or do they have a component interface? What does it mean to install the crowdcrafting plugin into datasphere?
-
-  * Exploratory
-    * I see it in the list of plugins
-    * I download the plugin and install it.
-  * I am designing a crowdsourced data driven journalism piece.
-    * I design my document with visualisations intertwined with narrative. Some data is sourced from official sources, and I want to compare it with data sourced from the crowd.
-    * Which data? Let's take the Correctiv example. The identification of key data points inside a database of PDFs.
-
-```
-doc Sparkasse Investigation
-text We're investigating the Sparkasse empire and who is...
-section
-  text We want to do this because...
-
-section example
-  text here's an example of what we would like you to help us with.
-  image pdf-doc.png
-  text This is a PDF like the one we have available in our data base.
-
-section crowdsourced
-  text Here's the data we received so far.
-  data :type table :sort updated
-    file :url http://example.org/example_bootstrapping.json
-    crowd :account correctiv@crowdcrafting.org :key !@#@#FK#$
-    source :type sparql :name dbpedia :url
-    source :type ldp :name transformap
-    source :type ldf :name plp
-
-section participate
-  text
-  crowd participate
-```
-
-cf [DSL.md](./DSL.md)
 
 ## State
 
@@ -193,17 +126,6 @@ It should be possible to create more modes. But these are provided as opiniated 
  * First load should display Hello world in edit mode.
  * Saving should ask to publish to a sane web default.
  * It should be easy to view source which should have something like ```:text Hello World```
-
-
-## Components
-
-### Formatters
-
-Formatters have scope. They can declare their scope, meaning the type of nodes they can represent. i.e. Markdown -> text / Mermaid -> diagrams /...
-
-   * themes can package formatters.
-
-### Connectors
 
 
 
@@ -266,9 +188,6 @@ What about mobile? Haskell seems to go towards compiling for iOS so it could be 
 So then the roadmap should be:
  - Scratch my own itch, make sure I use it :
     + Standalone
-        - atom-shell
-        - chromium ->
-        - node -> GHCJS
     +
 
 
@@ -293,43 +212,9 @@ So then the roadmap should be:
 
 Is there a scenario where there is light processing done on the client side without GHCJS? I don't think so, that's the user experience equivalent of downloading Google Spreadsheet to work offline.
 
-
 ## Remote Processing
 
 In a large data processing cloud infrastructure it might make sense to have several hardware nodes each dedicated to particular transforms and spawning "worker nodes" which interact with each other with ??? (what's the Haskell way to do that?) or we could just interact with Storm/Kafka -> See https://github.com/hailstorm-hs/hailstorm).
-
-## Browser
-
-Still dilemma for what should be inside atom-shell between:
- - Elm
- - Polymer - was very fast to learn. https://github.com/smaye81/functional-reactive-js-seed ? Seems not very functional, but maybe it could be made into it...
- - Some functional JS approach mixed with common tools. Like
-     + json-editor
-     + bootstrap
-
-
-Atom-shell with node in the backend opens avenues for using native-modules and things like dat.
-
-|--------------------|-------|-------------|----------|-----------|-----------|------|-------|----------|
-|                    | Terse | Error prone | Maturity | Ecosystem | Sub-state | Perf | Adopt | Flexible |
-|--------------------|-------|-------------|----------|-----------|-----------|------|-------|----------|
-| Cljs/Om/core.async | -     | -           | +        | +++       | ++        | ++   | --    | ++       |
-| Elm                | +     | +           | --       | --        | -         | +    | -     | --       |
-| GHCJS              | +     | ++          |          | --        |           | -    |       | +        |
-| JS                 | +     | ---         | +        | +++       |           | +    | ++    | +        |
-|--------------------|-------|-------------|----------|-----------|-----------|------|-------|----------|
-
- - Clojure : Om (has good subcomponent solution) + core.async
- - Elm: Has FRP,
-
-|------------|--------------|-------------|--------------|--------------------|-----------------|
-|            |      <3      |   Desktop   | Architecture | Extension language | Je ne sais quoi |
-|------------|--------------|-------------|--------------|--------------------|-----------------|
-| atom       |              | atom-shell  |              | Coffeescript / JS  | Maxogden        |
-| LightTable | Architecture | node-webkit | BOT          | CLJS / CSS / JS    | Eve             |
-| brackets   |              |             |              |                    |                 |
-|------------|--------------|-------------|--------------|--------------------|-----------------|
-
 
 
 ### Scenario modular frontend -  + GHCJS - Blaze-React scenario
@@ -360,7 +245,7 @@ Haste has localstorage, and HPlayground (React)
 GHCJS/Blaze-react has LocalStorage and WebSockets
 
 |-------------------|-----|-------------------|----------------|------|----|--------------|------------|---------|
-|                   |  <3 |      Remarks      |     State      | HTML | TH | LocalStorage | WebSockets | LevelDB |
+|                   |  <  |      Remarks      |     State      | HTML | TH | LocalStorage | WebSockets | LevelDB |
 |-------------------|-----|-------------------|----------------|------|----|--------------|------------|---------|
 | Purescript        |     | Not so pretty FRP |                |      | No |              |            |         |
 | Elm               | ++  |                   |                |      | No |              |            |         |
@@ -433,3 +318,8 @@ Important not to confuse the adaptive nature of the backend persistence layer wi
   * Yesod with Persistent.
     - NoSQL MongoDB. Useful for "schema less" or "schema defined elsewhere" approach. Will I miss ways to query? Can Esqueleto JOIN Mongo backends?
     -
+
+## Inference
+
+There might be a need for a machine learning approach to building progressive data representations:
+ - DL-Learner - machine learning framework for OWL and description logics. http://dl-learner.org/Resources/Documents/manual.pdf

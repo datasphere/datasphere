@@ -1,8 +1,12 @@
 # DataSphere
 
-A framework for developers to help develop applications that allow to visualise and interact with data in sophisticated ways more rapidly and in a more robust manner.
+An ecosystem to help visualise and interact with data in sophisticated ways more rapidly and in a more robust and interoperable manner.
 
-An Integrated Data Analysis Environment. I-DA-E. Aidai.
+ - Data Document Editor - for organising and managing data.
+ - DataMarkDown - A Markdown for Data, a DSL for describing data and data interaction.
+ - Framework - for developers to help develop applications
+
+## Features
 
  - The evolution of refine.
  - A database you just copy-paste into.
@@ -14,6 +18,27 @@ An Integrated Data Analysis Environment. I-DA-E. Aidai.
  - Switch perspective with "almost" alt-tab.
  - Is distraction free first/second.
  - Can be introspected all-the-way
+
+## Technologies
+
+This is currently a moving target. See the [dependencies document](docs/DEPENDENCIES.md) for current thinking about technology components.
+
+## Docs
+
+  * [Roadmap](docs/ROADMAP.md)
+  * Design
+    * [User Experience](docs/UX.md) - What it looks like to use software built with DataSphere.
+    * [Developer Experience](docs/DX.md) - What it looks like to develop software with DataSphere.
+    * [Contributor Experience](docs/CX.md) - What it looks like to contribute to developping the DataSphere ecosystem.
+    * [Architecture](docs/ARCHITECTURE.md) - Notes about the research and choices regarding software architecture.
+    * [Dependencies](docs/DEPENDENCIES.md) - Notes about dependencies with existing technologies.
+    * [Layers](docs/LAYERS.md) - Plugins
+    * [Data](docs/DATA.md) - Application data modeling.
+    * [API](docs/API.md) - API documentation.
+    * [DSL](docs/DSL.md) - DataMarkDown specification
+  * DataSphere Development
+    * [Development Notes](docs/DEV_NOTES.md)
+
 
 ## Development
 
@@ -27,5 +52,3 @@ In the REPL, type
 ```
 
 Open Lighttable, Connect to a "Browser (External)" client. Copy paste the script tag and replace the tag in resources/index.html
-
-

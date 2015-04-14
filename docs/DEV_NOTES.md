@@ -13,4 +13,6 @@
       (assoc-in state [:audio :muted] true))
   ```
 
+* Updated LightTable, lein-light-nrepl, figwheel, figwhell-sidecar, cljsbuild (https://github.com/bhauman/lein-figwheel/issues/119) to deal with fs version issue and LightTable eval (still not solved https://github.com/LightTable/LightTable/issues/1845#issuecomment-91566003)
 
+* What's the minimum I need to deal with the bullet points example?
