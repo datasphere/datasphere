@@ -1,6 +1,8 @@
 # DataSphere
 
-An ecosystem to help visualise and interact with data in sophisticated ways more rapidly and in a more robust and interoperable manner.
+We believe that producing and manipulating representations of your thoughts brings clarity of thought, and that clarity of thought helps learning, teaching, communicating, deciding and being happy.
+
+Datasphere is a software ecosystem to help visualise and interact with data in sophisticated and immediate ways.
 
  - Data Document Editor - for organising and managing data.
  - DataMarkDown - A Markdown for Data, a DSL for describing data and data interaction.
